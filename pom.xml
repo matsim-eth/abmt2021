@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.matsim</groupId>
+    <artifactId>matsim-eth-abmtclass</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <properties>
+        <!-- release -->
+        <matsim.version>13.0</matsim.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <repositories>
+    <!--Note that in general repositories are not transitive, so they need to be repeated at every level where needed.-->
+    <repository>
+        <!-- Geotools is not on Maven central -->
+        <id>osgeo</id>
+        <name>Geotools repository</name>
+        <!-- <url>http://download.osgeo.org/webdav/geotools</url> -->
+        <url>https://repo.osgeo.org/repository/release/</url>
+    </repository>
+    <repository>
+        <!-- Repository for MATSim (MATSim is not on Maven central, releases and snapshots) -->
+        <id>matsim</id>
+        <url>https://repo.matsim.org/repository/matsim</url>
+    </repository>
+    </repositories>
+
+    <dependencies>
+    <dependency>
+        <!-- This is the matsim "core": -->
+        <groupId>org.matsim</groupId>
+        <artifactId>matsim</artifactId>
+        <version>${matsim.version}</version>
+    </dependency>
+        <!--dependencies from here to where stated below are added as a service; they can be removed if you don't need them-->
+
+    </dependencies>
+
+
+</project>

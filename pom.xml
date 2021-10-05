@@ -1,12 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>org.matsim</groupId>
-	<artifactId>abmt2021</artifactId>
+	<artifactId>matsim-eth-abmtclass</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
+		<!-- release -->
 		<matsim.version>13.0</matsim.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -32,28 +35,14 @@
 			<url>https://repo.matsim.org/repository/matsim</url>
 		</repository>
 	</repositories>
+
 	<dependencies>
 		<dependency>
-			<!-- This is the matsim "core": -->
 			<groupId>org.matsim</groupId>
 			<artifactId>matsim</artifactId>
 			<version>${matsim.version}</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.matsim.contrib</groupId>
-			<artifactId>roadpricing</artifactId>
-			<version>${matsim.version}</version>
-		</dependency>
-		
-		
-		<dependency>
-			<!-- Include the JUnit testing library. Not transitive. -->
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.1</version>
-			<scope>test</scope>
-		</dependency>
+
 	</dependencies>
 
 

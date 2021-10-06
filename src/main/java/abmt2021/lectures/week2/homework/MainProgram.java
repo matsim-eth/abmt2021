@@ -49,6 +49,8 @@ public class MainProgram {
 		links.put(linkLuganoLausanne.getId(), linkLuganoLausanne);
 		links.put(linkBernLausanne.getId(), linkBernLausanne);
 
+		// we then can create a Network object and 
+		// we pass the nodes and links that we previously created
 		Network network = new Network(nodes, links);
 
 		Node nodeZug = new Node(2681684.12, 1224847.58, "Zug");
@@ -58,6 +60,9 @@ public class MainProgram {
 		Link longestConnection = null;
 		double distance = Double.MIN_VALUE;
 
+		// we go through all the links in the network and we check 
+		// which one is the longest. We obtain a Collection of Link objects
+		// by getting all Link objects stored in the links Map
 		for (Link link : network.getLinks().values()) {
 			if (link.linkLength() > distance) {
 				distance = link.linkLength();

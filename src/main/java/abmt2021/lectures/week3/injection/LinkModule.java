@@ -1,4 +1,4 @@
-package abmt2021.lectures.week3.live;
+package abmt2021.lectures.week3.injection;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;

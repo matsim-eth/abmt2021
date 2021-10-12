@@ -18,7 +18,7 @@ public class RunMatsimInjection {
 
 		// MATSim context
 		
-		// first we load the config
+		// first we load the config, you need to provide a path the the equil scenario on your computer
 		Config config = ConfigUtils.loadConfig("C:\\Users\\balacm\\Downloads\\scenarios\\scenarios\\equil\\config.xml");
 		// we only want to simulate one iteration to see if our code works
 		config.controler().setLastIteration(1);

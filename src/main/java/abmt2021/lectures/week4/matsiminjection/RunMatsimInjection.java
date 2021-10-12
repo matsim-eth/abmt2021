@@ -71,6 +71,14 @@ public class RunMatsimInjection {
 				
 				// now we also need to tell MATSim that it should use our MyControlerListener
 				this.addControlerListenerBinding().to(MyControlerListener.class);
+				
+				
+				// another alternative would be the following (comment out all lines above)
+				// bind the MyEventHandler either as a class or with a provider
+				//bind(MyEventHandler.class).toProvider(MyEventHandlerProvider.class);
+				// then just add a controler listener
+				// what is here actually different can be seen within the listener itself
+				//this.addControlerListenerBinding().to(MyControlerListenerV2.class);
 
 			}
 		});

@@ -3,9 +3,11 @@ package abmt2021.exercise.week5.discreteModeChoice;
 import abmt2021.exercise.week5.discreteModeChoice.modeChoice.AbmtModeChoiceModule;
 import org.eqasim.core.simulation.EqasimConfigurator;
 import org.eqasim.core.simulation.mode_choice.EqasimModeChoiceModule;
+import org.eqasim.core.simulation.mode_choice.parameters.ModeParameters;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
+import org.matsim.core.controler.AbstractModule;
 import org.matsim.core.controler.Controler;
 import org.matsim.core.controler.OutputDirectoryHierarchy;
 import org.matsim.core.scenario.ScenarioUtils;
@@ -18,7 +20,7 @@ public class RunDefaultEqasim {
     public static void main(String[] args)  {
 
 
-        String configPath = args[0];
+        String configPath = args[0]; //use the sioux fall scenario config_default_eqasim.xml file
 
         //load the config file with the necessary modules (DMC module and eqasim...)
         //we can look the EqasimConfigurator class to see what methods are available and ehat the getConfigGroups method does
@@ -41,8 +43,16 @@ public class RunDefaultEqasim {
         //Add the eqasim mode choice module
         controller.addOverridingModule(new EqasimModeChoiceModule());
 
-        //Add your own ModeChoice module to inject the mode parameters
-        controller.addOverridingModule(new AbmtModeChoiceModule());
+        //Add an injection for mode parameters for the code to work
+        controller.addOverridingModule(new AbstractModule() {
+            @Override
+            public void install() {
+                bind(ModeParameters.class).asEagerSingleton();
+            }
+        });
+
+        //for clean code and organization, we create a module for all our mode choice class injections and put the above there
+        //controller.addOverridingModule(new AbmtModeChoiceModule());
 
 
         controller.run();

@@ -1,11 +1,9 @@
 package abmt2021.exercise.week5.discreteModeChoice;
 
 import abmt2021.exercise.week5.discreteModeChoice.modeChoice.AbmtModeChoiceModule;
-import org.eqasim.core.components.config.EqasimConfigGroup;
 import org.eqasim.core.simulation.EqasimConfigurator;
 import org.eqasim.core.simulation.mode_choice.EqasimModeChoiceModule;
 import org.matsim.api.core.v01.Scenario;
-import org.matsim.core.config.CommandLine;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.Controler;

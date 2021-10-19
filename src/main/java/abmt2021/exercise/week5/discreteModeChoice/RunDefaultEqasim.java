@@ -24,25 +24,13 @@ public class RunDefaultEqasim {
 
         //load the config file with the necessary modules (DMC module and eqasim...)
         //we can look the EqasimConfigurator class to see what methods are available and ehat the getConfigGroups method does
-        Config config = ConfigUtils.loadConfig(configPath,
-                EqasimConfigurator.getConfigGroups());
+        Config config = ConfigUtils.loadConfig(configPath, EqasimConfigurator.getConfigGroups());
 
+        config.controler().setLastIteration(3);
         config.controler().setOverwriteFileSetting(OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists);
 
         //Now we have loaded the config, next is to load our scenario
-
         Scenario scenario = ScenarioUtils.loadScenario(config);
-
-        //We need to define the names of the utility estimators we would use for the different modes
-        //Now we use the default names
-
-        EqasimConfigGroup eqasimConfig = (EqasimConfigGroup) config.getModules().get(EqasimConfigGroup.GROUP_NAME);
-
-        eqasimConfig.setEstimator("walk", "WalkUtilityEstimator");
-        eqasimConfig.setEstimator("pt", "PtUtilityEstimator");
-        eqasimConfig.setEstimator("bike", "BikeUtilityEstimator");
-        eqasimConfig.setEstimator("car", "CarUtilityEstimator");
-
 
         //Create controller
         Controler controller = new Controler(scenario);
@@ -52,8 +40,10 @@ public class RunDefaultEqasim {
 
 
 
-        //Also add the eqasim mode choice module
+        //Add the eqasim mode choice module
         controller.addOverridingModule(new EqasimModeChoiceModule());
+
+        //Add your own ModeChoice module to inject the mode parameters
         controller.addOverridingModule(new AbmtModeChoiceModule());
 
 

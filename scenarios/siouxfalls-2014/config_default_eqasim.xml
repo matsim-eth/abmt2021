@@ -8,7 +8,7 @@
 	</module>
 
 	<module name="plans">
-		<param name="inputPlansFile" value="Siouxfalls_population.xml.gz" />
+		<param name="inputPlansFile" value="sf_population_10pct.xml.gz" />
 	</module>
 	
 	<module name="facilities" >
@@ -20,7 +20,7 @@
 		<param name="writeEventsInterval" value="1000" />
 		<param name="writePlansInterval" value="1000" />
 		<param name="eventsFileFormat" value="xml" />
-		<param name="outputDirectory" value="output/siouxfalls-2014"/>
+		<param name="outputDirectory" value="scenarios/siouxfalls-2014/output_dmc"/>
 		<param name="firstIteration" value="0" />
 		<param name="lastIteration" value="100" />
 		<param name="mobsim" value="qsim" />

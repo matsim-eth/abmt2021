@@ -1,0 +1,25 @@
+# Cost
+betaCost_u_MU: 0.0
+
+# Car
+car.alpha_u: 0.0
+abmtCar.alpha_male: 0.1
+car.betaTravelTime_u_min: -0.025
+
+
+# PT
+pt.alpha_u: 0.0
+pt.betaAccessEgressTime_u_min: 0.0
+pt.betaInVehicleTime_u_min: -0.025
+pt.betaWaitingTime_u_min: 0.0
+pt.betaLineSwitch_u: 0.0
+
+# Walk
+walk.alpha_u: 0.0
+walk.betaTravelTime_u_min: -0.025
+
+# Bike
+bike.alpha_u: 0.0
+bike.betaTravelTime_u_min: -0.025
+
+#Whatever is not specified here would use the default values in the code (usually zero)

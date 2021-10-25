@@ -3,6 +3,116 @@
 
 <config>
 
+	<module name="DiscreteModeChoice" >
+		<param name="accumulateEstimationDelays" value="true" />
+		<!-- Trips tested with the modes listed here will be cached for each combination of trip and agent during one replanning pass. -->
+		<param name="cachedModes" value="car, bike, pt, walk" />
+		<!-- Defines whether to run a runtime check that verifies that everything is set up correctl for a 'mode-choice-in-the-loop' setup. -->
+		<param name="enforceSinglePlan" value="false" />
+		<!-- Defines what happens if there is no feasible choice alternative for an agent: IGNORE_AGENT, INITIAL_CHOICE, EXCEPTION -->
+		<param name="fallbackBehaviour" value="EXCEPTION" />
+		<!-- Defines how home activities are identified. Built-in choices: FirstActivity, ActivityBased -->
+		<param name="homeFinder" value="EqasimHomeFinder" />
+		<!-- Defines which ModeAvailability component to use. Built-in choices: Default, Car -->
+		<param name="modeAvailability" value="Car" />
+		<!-- Main model type: Trip, Tour -->
+		<param name="modelType" value="Tour" />
+		<!-- Defines whether the DiscreteModeChoice strategy should be followed by a rerouting of all trips. If the estimator returns alternatives with routes attached this is not necessary. -->
+		<param name="performReroute" value="false" />
+		<!-- Defines which Selector component to use. Built-in choices: Maximum, MultinomialLogit, Random -->
+		<param name="selector" value="MultinomialLogit" />
+		<!-- Defines a number of TourConstraint components that should be activated. Built-in choices: FromTripBased, VehicleContinuity, SubtourMode -->
+		<param name="tourConstraints" value="EqasimVehicleTourConstraint, FromTripBased" />
+		<param name="tourEstimator" value="Cumulative" />
+		<!-- Defines a number of TourFilter components that should be activated. Built-in choices: TourLength -->
+		<param name="tourFilters" value="TourLengthFilter, OutsideFilter" />
+		<!-- Defines which TourFinder component to use. Built-in choices: PlanBased, ActivityBased, HomeBased -->
+		<param name="tourFinder" value="ActivityBased" />
+		<!-- Defines a number of TripConstraint components that should be activated. Built-in choices: VehicleContinuity, ShapeFile, LinkAttribute, TransitWalk -->
+		<param name="tripConstraints" value="TransitWalk, PassengerConstraint, OutsideConstraint" />
+		<!-- Defines which TripEstimator component to use. Built-in choices: MATSimTripScoring, Uniform -->
+		<param name="tripEstimator" value="EqasimUtilityEstimator" />
+		<!-- Defines a number of TripFilter components that should be activated. Built-in choices:  -->
+		<param name="tripFilters" value="" />
+		<parameterset type="homeFinder:ActivityBased" >
+			<!-- Comma-separated activity types which should be considered as home. -->
+			<param name="activityTypes" value="home" />
+		</parameterset>
+		<parameterset type="modeAvailability:Car" >
+			<!-- Defines which modes are avialable to the agents. -->
+			<param name="availableModes" value="pt, car, walk, bike" />
+		</parameterset>
+		<parameterset type="modeAvailability:Default" >
+			<!-- Defines which modes are avialable to the agents. -->
+			<param name="availableModes" value="pt, car, walk, bike" />
+		</parameterset>
+		<parameterset type="selector:MultinomialLogit" >
+			<!-- Defines whether candidates with a utility lower than the minimum utility should be filtered out. -->
+			<param name="considerMinimumUtility" value="false" />
+			<!-- Candidates with a utility above that threshold will be cut off to this value. -->
+			<param name="maximumUtility" value="700.0" />
+			<!-- Candidates with a utility lower than that threshold will not be considered by default. -->
+			<param name="minimumUtility" value="-700.0" />
+		</parameterset>
+		<parameterset type="tourConstraint:SubtourMode" >
+			<!-- Modes for which the sub-tour behaviour should be replicated. If all available modes are put here, this equals to SubTourModeChoice with singleLegProbability == 0.0; if only the constrained modes are put here, it equals singleLegProbability > 0.0 -->
+			<param name="constrainedModes" value="" />
+		</parameterset>
+		<parameterset type="tourConstraint:VehicleContinuity" >
+			<!-- Defines which modes must fulfill continuity constraints (can only be used where they have been brough to before) -->
+			<param name="restrictedModes" value="car, bike" />
+		</parameterset>
+		<parameterset type="tourFilter:TourLength" >
+			<!-- Defines the maximum allowed length of a tour. -->
+			<param name="maximumLength" value="10" />
+		</parameterset>
+		<parameterset type="tourFinder:ActivityBased" >
+			<!-- Comma-separated activity types which should be considered as start and end of a tour. If a plan does not start or end with such an activity additional tours are added. -->
+			<param name="activityTypes" value="home" />
+		</parameterset>
+		<parameterset type="tripConstraint:LinkAttribute" >
+			<!-- Link attribute that will be considered for feasibility of the trip. -->
+			<param name="attributeName" value="null" />
+			<!-- Value that the link attributes should equal. -->
+			<param name="attributeValue" value="null" />
+			<!-- Modes for which the constraint will be considered. -->
+			<param name="constrainedModes" value="" />
+			<!-- Defines the criterion on when a trip with the constrained mode will be allowed: ORIGIN, DESTINATION, BOTH, ANY, NONE -->
+			<param name="requirement" value="BOTH" />
+		</parameterset>
+		<parameterset type="tripConstraint:ShapeFile" >
+			<!-- Modes for which the shapes will be considered. -->
+			<param name="constrainedModes" value="" />
+			<!-- Path to a shape file, which should have the same projection as the network. -->
+			<param name="path" value="null" />
+			<!-- Defines the criterion on when a trip with the constrained mode will be allowed: ORIGIN, DESTINATION, BOTH, ANY, NONE -->
+			<param name="requirement" value="BOTH" />
+		</parameterset>
+		<parameterset type="tripConstraint:VehicleContinuity" >
+			<!-- Defines if the advanced constriant is used (vehicles must be brought back home). -->
+			<param name="isAdvanced" value="true" />
+			<!-- Defines which modes must fulfill continuity constraints (can only be used where they have been brough to before) -->
+			<param name="restrictedModes" value="car, bike" />
+		</parameterset>
+		<parameterset type="tripEstimator:MATSimTripScoring" >
+			<!-- Modes which are considered as public transit, i.e. they involve waiting for a vehicle. -->
+			<param name="ptLegModes" value="pt" />
+		</parameterset>
+	</module>
+
+	<module name="eqasim" >
+		<param name="costParametersPath" value="null" />
+		<param name="crossingPenalty" value="3.0" />
+		<!-- Possible values: kilometer, meter, mile, foot -->
+		<param name="distanceUnit" value="meter" />
+		<param name="modeParametersPath" value="scenarios/siouxfalls-2014/mode_params.yml" />
+		<param name="sampleSize" value="1.0" />
+		<!-- Possible values: kilometer, meter, mile, foot -->
+		<param name="tripAnalysisDistanceUnit" value="meter" />
+		<param name="tripAnalysisInterval" value="0" />
+		<param name="useScheduleBasedTransport" value="true" />
+	</module>
+
 	<module name="network">
 		<param name="inputNetworkFile" value="Siouxfalls_network_PT.xml" />
 	</module>
@@ -20,7 +130,7 @@
 		<param name="writeEventsInterval" value="1000" />
 		<param name="writePlansInterval" value="1000" />
 		<param name="eventsFileFormat" value="xml" />
-		<param name="outputDirectory" value="scenarios/siouxfalls-2014/output_dmc"/>
+		<param name="outputDirectory" value="scenarios/siouxfalls-2014/output_dmc3"/>
 		<param name="firstIteration" value="0" />
 		<param name="lastIteration" value="100" />
 		<param name="mobsim" value="qsim" />
